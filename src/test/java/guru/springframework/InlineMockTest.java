@@ -14,4 +14,5 @@ public class InlineMockTest {
         Map mapmock = mock(Map.class);
         assertEquals(mapmock.size(), 0);
     }
+
 }
