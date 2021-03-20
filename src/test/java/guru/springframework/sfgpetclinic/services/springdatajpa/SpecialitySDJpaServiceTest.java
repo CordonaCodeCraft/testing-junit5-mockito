@@ -27,26 +27,19 @@ class SpecialitySDJpaServiceTest {
 
     @Test
     void testDeleteByObject() {
+
+        //given
         Speciality speciality = new Speciality();
+
+        //when
         service.delete(speciality);
-        verify(specialtyRepository).delete(any(Speciality.class));
+
+        //then
+        then(specialtyRepository).should().delete(any(Speciality.class));
     }
 
-    @Test
-    void findByIdTest() {
-        Speciality speciality = new Speciality();
-
-        when(specialtyRepository.findById(1L)).thenReturn(Optional.of(speciality));
-
-        Speciality foundSpecialty = service.findById(1L);
-
-        assertThat(foundSpecialty).isNotNull();
-
-        verify(specialtyRepository).findById(anyLong());
-    }
-
-    @Test
-    void findByIdBddTest() {
+     @Test
+    void findByITest() {
 
         //given
         Speciality speciality = new Speciality();
@@ -64,39 +57,64 @@ class SpecialitySDJpaServiceTest {
 
     @Test
     void deleteByID() {
+
+        //given - none
+
+        //when
         service.deleteById(1L);
         service.deleteById(1L);
 
-        verify(specialtyRepository, times(2)).deleteById(1L);
+        //then
+        then(specialtyRepository).should(times(2)).deleteById(1L);
     }
 
     @Test
     void deleteByIDAtLeast() {
+
+        //given - none
+
+        //when
         service.deleteById(1L);
         service.deleteById(1L);
 
-        verify(specialtyRepository, atLeast(1)).deleteById(1L);
+        //then
+        then(specialtyRepository).should(atLeastOnce()).deleteById(1L);
     }
 
     @Test
     void deleteByIDAtMost() {
+
+        //given - none
+
+        //when
         service.deleteById(1L);
         service.deleteById(1L);
 
-        verify(specialtyRepository, atMost(5)).deleteById(1L);
+        //then
+        then(specialtyRepository).should(atMost(5)).deleteById(1L);
     }
 
     @Test
     void deleteByIDNever() {
+
+        //given - none
+
+        //when
         service.deleteById(1L);
         service.deleteById(1L);
 
-        verify(specialtyRepository, atLeast(1)).deleteById(1L);
-        verify(specialtyRepository, never()).deleteById(5L);
+        //then
+        then(specialtyRepository).should(atLeast(1)).deleteById(1L);
+        then(specialtyRepository).should(never()).deleteById(5L);
     }
 
     @Test
     void delete() {
+
+        //when
         service.delete(new Speciality());
+
+        //then
+        then(specialtyRepository).should().delete(any());
     }
 }
